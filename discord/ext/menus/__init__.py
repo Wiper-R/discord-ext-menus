@@ -25,7 +25,7 @@ DEALINGS IN THE SOFTWARE.
 """
 
 import asyncio
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional, List, TypeVar
 import discord
 from discord.ext import commands
 
@@ -41,8 +41,7 @@ __version__ = "1.0.0-a"
 
 # consistency with the `discord` namespaced logging
 log = logging.getLogger(__name__)
-
-
+T = TypeVar("T")
 class MenuError(Exception):
     pass
 
@@ -1297,7 +1296,7 @@ class AsyncIteratorPageSource(PageSource):
             raise IndexError("Went too far")
         return entries
 
-    async def get_page(self, page_number):
+    async def get_page(self, page_number) -> T | List[T]:
         """Returns either a single element of the sequence or
         a slice of the sequence.
 
